@@ -2,6 +2,7 @@ package br.uespi.autoescola.model;
 
 import jakarta.persistence.*;
 import java.util.Date;
+import java.util.Set;
 
 @Entity
 public class Instrutor {
@@ -14,6 +15,14 @@ public class Instrutor {
     private String cpf;
     private String nome;
     private Date dataDeNascimento;
+
+    @ManyToMany
+    @JoinTable(
+        name = "Instrutor_Aula",
+        joinColumns = @JoinColumn(name = "fk_Instrutor_ID"),
+        inverseJoinColumns = @JoinColumn(name = "fk_Aula_ID")
+    )
+    private Set<Aula> aula;
 
     public Long getId() {
         return id;
@@ -53,5 +62,13 @@ public class Instrutor {
 
     public void setDataDeNascimento(Date dataDeNascimento) {
         this.dataDeNascimento = dataDeNascimento;
+    }
+
+    public Set<Aula> getAula() {
+        return aula;
+    }
+
+    public void setAula(Set<Aula> aula) {
+        this.aula = aula;
     }
 }
