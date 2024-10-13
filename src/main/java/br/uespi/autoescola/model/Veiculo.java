@@ -1,6 +1,7 @@
 package br.uespi.autoescola.model;
 
 import jakarta.persistence.*;
+import java.util.Set;
 
 @Entity
 public class Veiculo {
@@ -12,6 +13,14 @@ public class Veiculo {
     private String placa;
     private String modelo;
     private Integer ano;
+
+    @ManyToMany
+    @JoinTable(
+        name = "Veiculo_Aula",
+        joinColumns = @JoinColumn(name = "fk_Veiculo_ID"),
+        inverseJoinColumns = @JoinColumn(name = "fk_Aula_ID")
+    )
+    private Set<Aula> aula;
 
     public Long getId() {
         return id;
@@ -43,6 +52,14 @@ public class Veiculo {
 
     public void setAno(Integer ano) {
         this.ano = ano;
+    }
+
+    public Set<Aula> getAula() {
+        return aula;
+    }
+
+    public void setAula(Set<Aula> aula) {
+        this.aula = aula;
     }
 }
 
