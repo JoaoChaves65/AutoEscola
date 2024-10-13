@@ -2,6 +2,7 @@ package br.uespi.autoescola.model;
 
 import jakarta.persistence.*;
 import java.util.Date;
+import java.util.Set;
 
 @Entity
 public class Aula {
@@ -13,6 +14,30 @@ public class Aula {
     private Date data;
     private String hora;
     private String local;
+
+    @ManyToMany
+    @JoinTable(
+        name = "Aluno_Aula",
+        joinColumns = @JoinColumn(name = "fk_Aula_ID"),
+        inverseJoinColumns = @JoinColumn(name = "fk_Aluno_ID")
+    )
+    private Set<Aluno> alunos;
+
+    @ManyToMany
+    @JoinTable(
+        name = "Veiculo_Aula",
+        joinColumns = @JoinColumn(name = "fk_Aula_ID"),
+        inverseJoinColumns = @JoinColumn(name = "fk_Veiculo_ID")
+    )
+    private Set<Veiculo> veiculos;
+
+    @ManyToMany
+    @JoinTable(
+        name = "Instrutor_Aula",
+        joinColumns = @JoinColumn(name = "fk_Aula_ID"),
+        inverseJoinColumns = @JoinColumn(name = "fk_Instrutor_ID")
+    )
+    private Set<Instrutor> instrutores;
 
     public Long getId() {
         return id;
@@ -44,5 +69,29 @@ public class Aula {
 
     public void setLocal(String local) {
         this.local = local;
+    }
+
+    public Set<Aluno> getAlunos() {
+        return alunos;
+    }
+
+    public void setAlunos(Set<Aluno> alunos) {
+        this.alunos = alunos;
+    }
+
+    public Set<Veiculo> getVeiculos() {
+        return veiculos;
+    }
+
+    public void setVeiculos(Set<Veiculo> veiculos) {
+        this.veiculos = veiculos;
+    }
+
+    public Set<Instrutor> getInstrutores() {
+        return instrutores;
+    }
+
+    public void setInstrutores(Set<Instrutor> instrutores) {
+        this.instrutores = instrutores;
     }
 }
