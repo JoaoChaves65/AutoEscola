@@ -28,4 +28,13 @@ public class VeiculoService {
     public void deleteById(Long id) {
         veiculoRepository.deleteById(id);
     }
+
+    public Veiculo update(Long id, Veiculo veiculo) {
+        if (veiculoRepository.existsById(id)) {
+            veiculo.setId(id);
+            return veiculoRepository.save(veiculo);
+        } else {
+            return null;
+        }
+    }
 }
