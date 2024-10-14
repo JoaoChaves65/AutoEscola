@@ -28,4 +28,13 @@ public class AlunoService {
     public void deleteById(Long id) {
         alunoRepository.deleteById(id);
     }
+
+    public Aluno update(Long id, Aluno aluno) {
+        if (alunoRepository.existsById(id)) {
+            aluno.setId(id);
+            return alunoRepository.save(aluno);
+        } else {
+            return null;
+        }
+    }
 }
