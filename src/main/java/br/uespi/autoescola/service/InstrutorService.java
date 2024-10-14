@@ -28,4 +28,13 @@ public class InstrutorService {
     public void deleteById(Long id) {
         instrutorRepository.deleteById(id);
     }
+
+    public Instrutor update(Long id, Instrutor instrutor) {
+        if (instrutorRepository.existsById(id)) {
+            instrutor.setId(id);
+            return instrutorRepository.save(instrutor);
+        } else {
+            return null;
+        }
+    }
 }
