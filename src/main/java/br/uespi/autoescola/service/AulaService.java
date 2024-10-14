@@ -28,4 +28,13 @@ public class AulaService {
     public void deleteById(Long id) {
         aulaRepository.deleteById(id);
     }
+
+    public Aula update(Long id, Aula aula) {
+        if (aulaRepository.existsById(id)) {
+            aula.setId(id);
+            return aulaRepository.save(aula);
+        } else {
+            return null;
+        }
+    }
 }
