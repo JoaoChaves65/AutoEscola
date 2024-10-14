@@ -1,7 +1,7 @@
 package br.uespi.autoescola.model;
 
 import jakarta.persistence.*;
-import java.util.Date;
+import java.time.LocalDate;
 import java.util.Set;
 
 @Entity
@@ -13,7 +13,7 @@ public class Aluno {
 
     private String nome;
     private String cpf;
-    private Date dataDeNascimento;
+    private LocalDate dataDeNascimento;
     private String telefone;
 
     @ManyToMany
@@ -48,11 +48,11 @@ public class Aluno {
         this.cpf = cpf;
     }
 
-    public Date getDataDeNascimento() {
+    public LocalDate getDataDeNascimento() {
         return dataDeNascimento;
     }
 
-    public void setDataDeNascimento(Date dataDeNascimento) {
+    public void setDataDeNascimento(LocalDate dataDeNascimento) {
         this.dataDeNascimento = dataDeNascimento;
     }
 
