@@ -25,14 +25,6 @@ public class Aula {
 
     @ManyToMany
     @JoinTable(
-        name = "Veiculo_Aula",
-        joinColumns = @JoinColumn(name = "fk_Aula_ID"),
-        inverseJoinColumns = @JoinColumn(name = "fk_Veiculo_ID")
-    )
-    private Set<Veiculo> veiculos;
-
-    @ManyToMany
-    @JoinTable(
         name = "Instrutor_Aula",
         joinColumns = @JoinColumn(name = "fk_Aula_ID"),
         inverseJoinColumns = @JoinColumn(name = "fk_Instrutor_ID")
@@ -77,14 +69,6 @@ public class Aula {
 
     public void setAlunos(Set<Aluno> alunos) {
         this.alunos = alunos;
-    }
-
-    public Set<Veiculo> getVeiculos() {
-        return veiculos;
-    }
-
-    public void setVeiculos(Set<Veiculo> veiculos) {
-        this.veiculos = veiculos;
     }
 
     public Set<Instrutor> getInstrutores() {

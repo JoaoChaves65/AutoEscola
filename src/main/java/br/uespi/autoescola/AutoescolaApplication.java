@@ -3,11 +3,9 @@ package br.uespi.autoescola;
 import br.uespi.autoescola.model.Aluno;
 import br.uespi.autoescola.model.Aula;
 import br.uespi.autoescola.model.Instrutor;
-import br.uespi.autoescola.model.Veiculo;
 import br.uespi.autoescola.service.AlunoService;
 import br.uespi.autoescola.service.AulaService;
 import br.uespi.autoescola.service.InstrutorService;
-import br.uespi.autoescola.service.VeiculoService;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
@@ -30,9 +28,6 @@ public class AutoescolaApplication implements CommandLineRunner {
 
     @Autowired
     private InstrutorService instrutorService;
-
-    @Autowired
-    private VeiculoService veiculoService;
 
     public static void main(String[] args) {
         SpringApplication.run(AutoescolaApplication.class, args);
@@ -68,12 +63,6 @@ public class AutoescolaApplication implements CommandLineRunner {
         instrutor.setTelefone("88888-8888");
         instrutorService.save(instrutor);
 
-        Veiculo veiculo = new Veiculo();
-        veiculo.setPlaca("ABC-1234");
-        veiculo.setModelo("Fusca");
-        veiculo.setAno(1970);
-        veiculoService.save(veiculo);
-
         Aula aula = new Aula();
         aula.setData(new Date());
         aula.setHora("10:00");
@@ -93,9 +82,6 @@ public class AutoescolaApplication implements CommandLineRunner {
 
         aula.setInstrutores(new HashSet<>());
         aula.getInstrutores().add(instrutor);
-
-        aula.setVeiculos(new HashSet<>());
-        aula.getVeiculos().add(veiculo);
 
         aulaService.save(aula);
 
