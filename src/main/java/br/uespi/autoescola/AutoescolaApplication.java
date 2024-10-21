@@ -16,6 +16,7 @@ import java.time.LocalDate;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.List; 
+import java.time.LocalTime; 
 
 @SpringBootApplication
 public class AutoescolaApplication implements CommandLineRunner {
@@ -65,7 +66,7 @@ public class AutoescolaApplication implements CommandLineRunner {
 
         Aula aula = new Aula();
         aula.setData(new Date());
-        aula.setHora("10:00");
+        aula.setHora(LocalTime.of(10, 0));
         aula.setLocal("Sala 1");
 
         Aluno alunoAtualizado = new Aluno();

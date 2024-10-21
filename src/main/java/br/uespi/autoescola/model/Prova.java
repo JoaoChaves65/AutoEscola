@@ -3,6 +3,7 @@ package br.uespi.autoescola.model;
 import jakarta.persistence.*;
 import java.time.LocalDate;
 import java.util.Set;
+import java.time.LocalTime;
 
 @Entity
 public class Prova {
@@ -11,7 +12,7 @@ public class Prova {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long codigoProva;
 
-    private String hora;
+    private LocalTime hora;
     private LocalDate data;
     private String tipoProva;
 
@@ -31,11 +32,11 @@ public class Prova {
         this.codigoProva = codigoProva;
     }
 
-    public String getHora() {
+    public LocalTime getHora() {
         return hora;
     }
 
-    public void setHora(String hora) {
+    public void setHora(LocalTime hora) {
         this.hora = hora;
     }
 

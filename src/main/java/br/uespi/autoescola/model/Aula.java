@@ -3,6 +3,8 @@ package br.uespi.autoescola.model;
 import jakarta.persistence.*;
 import java.util.Date;
 import java.util.Set;
+import java.util.HashSet;
+import java.time.LocalTime;
 
 @Entity
 public class Aula {
@@ -12,24 +14,14 @@ public class Aula {
     private Long id;
 
     private Date data;
-    private String hora;
+    private LocalTime hora;
     private String local;
 
-    @ManyToMany
-    @JoinTable(
-        name = "Aluno_Aula",
-        joinColumns = @JoinColumn(name = "fk_Aula_ID"),
-        inverseJoinColumns = @JoinColumn(name = "fk_Aluno_ID")
-    )
-    private Set<Aluno> alunos;
+    @ManyToMany(mappedBy = "aula")
+    private Set<Aluno> alunos = new HashSet<>();
 
-    @ManyToMany
-    @JoinTable(
-        name = "Instrutor_Aula",
-        joinColumns = @JoinColumn(name = "fk_Aula_ID"),
-        inverseJoinColumns = @JoinColumn(name = "fk_Instrutor_ID")
-    )
-    private Set<Instrutor> instrutores;
+    @ManyToMany(mappedBy = "aula")
+    private Set<Instrutor> instrutores = new HashSet<>();
 
     public Long getId() {
         return id;
@@ -47,11 +39,11 @@ public class Aula {
         this.data = data;
     }
 
-    public String getHora() {
+    public LocalTime getHora() {
         return hora;
     }
 
-    public void setHora(String hora) {
+    public void setHora(LocalTime hora) {
         this.hora = hora;
     }
 

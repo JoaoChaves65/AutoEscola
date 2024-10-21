@@ -3,6 +3,7 @@ package br.uespi.autoescola.model;
 import jakarta.persistence.*;
 import java.time.LocalDate;
 import java.util.Set;
+import java.util.HashSet;
 
 @Entity
 public class Aluno {
@@ -23,6 +24,12 @@ public class Aluno {
         inverseJoinColumns = @JoinColumn(name = "fk_Aula_ID")
     )
     private Set<Aula> aula;
+
+    @ManyToMany(mappedBy = "aluno")
+    private Set<Turma> turmas = new HashSet<>();
+
+    @ManyToMany(mappedBy = "aluno")
+    private Set<Prova> provas = new HashSet<>();
 
     public Long getId() {
         return id;

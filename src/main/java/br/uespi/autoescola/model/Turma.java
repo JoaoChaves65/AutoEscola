@@ -16,7 +16,7 @@ public class Turma {
 
     @OneToMany
     @JoinTable(
-        name = "Aluno_Prova",
+        name = "Aluno_Turma",
         joinColumns = @JoinColumn(name = "fk_Aluno_ID"),
         inverseJoinColumns = @JoinColumn(name = "fk_Turma_ID")
     )
