@@ -1,26 +1,34 @@
 package br.uespi.autoescola.model;
 
 import jakarta.persistence.*;
-import java.util.Date;
-import java.util.Set;
-import java.util.HashSet;
 import java.time.LocalTime;
+import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 public class Aula {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
     private Date data;
     private LocalTime hora;
     private String local;
 
-    @ManyToMany(mappedBy = "aula")
+    @ManyToMany
+    @JoinTable(
+        name = "Aluno_Aula",
+        joinColumns = @JoinColumn(name = "fk_Aula_ID"),
+        inverseJoinColumns = @JoinColumn(name = "fk_Aluno_ID")
+    )
     private Set<Aluno> alunos = new HashSet<>();
 
-    @ManyToMany(mappedBy = "aula")
+    @ManyToMany
+    @JoinTable(
+        name = "Instrutor_Aula",
+        joinColumns = @JoinColumn(name = "fk_Aula_ID"),
+        inverseJoinColumns = @JoinColumn(name = "fk_Instrutor_ID")
+    )
     private Set<Instrutor> instrutores = new HashSet<>();
 
     public Long getId() {

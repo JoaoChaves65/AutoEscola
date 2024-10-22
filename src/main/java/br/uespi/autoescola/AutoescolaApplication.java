@@ -3,9 +3,13 @@ package br.uespi.autoescola;
 import br.uespi.autoescola.model.Aluno;
 import br.uespi.autoescola.model.Aula;
 import br.uespi.autoescola.model.Instrutor;
+import br.uespi.autoescola.model.Prova;
+import br.uespi.autoescola.model.Turma;
 import br.uespi.autoescola.service.AlunoService;
 import br.uespi.autoescola.service.AulaService;
 import br.uespi.autoescola.service.InstrutorService;
+import br.uespi.autoescola.service.ProvaService;
+import br.uespi.autoescola.service.TurmaService;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
@@ -13,14 +17,13 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.Date;
 import java.util.HashSet;
-import java.util.List; 
-import java.time.LocalTime; 
+import java.util.List;
 
 @SpringBootApplication
 public class AutoescolaApplication implements CommandLineRunner {
-
     @Autowired
     private AlunoService alunoService;
 
@@ -29,6 +32,12 @@ public class AutoescolaApplication implements CommandLineRunner {
 
     @Autowired
     private InstrutorService instrutorService;
+
+    @Autowired
+    private TurmaService turmaService;
+
+    @Autowired
+    private ProvaService provaService;
 
     public static void main(String[] args) {
         SpringApplication.run(AutoescolaApplication.class, args);
@@ -39,7 +48,7 @@ public class AutoescolaApplication implements CommandLineRunner {
         Aluno aluno = new Aluno();
         aluno.setNome("João Silva");
         aluno.setCpf("123.456.789-00");
-        aluno.setDataDeNascimento(LocalDate.of(1970,06,27));
+        aluno.setDataDeNascimento(LocalDate.of(1970, 6, 27));
         aluno.setTelefone("99999-9999");
         alunoService.save(aluno);
 
@@ -53,7 +62,7 @@ public class AutoescolaApplication implements CommandLineRunner {
         Aluno aluno2 = new Aluno();
         aluno2.setNome("Luiz Santos");
         aluno2.setCpf("222.222.222-22");
-        aluno2.setDataDeNascimento(LocalDate.of(1998, 01, 20));
+        aluno2.setDataDeNascimento(LocalDate.of(1998, 1, 20));
         aluno2.setTelefone("22222-2222");
         alunoService.save(aluno2);
 
@@ -80,11 +89,26 @@ public class AutoescolaApplication implements CommandLineRunner {
         aula.getAlunos().add(aluno);
         aula.getAlunos().add(aluno1);
         aula.getAlunos().add(aluno2);
-
         aula.setInstrutores(new HashSet<>());
         aula.getInstrutores().add(instrutor);
-
         aulaService.save(aula);
+
+        Prova prova = new Prova();
+        prova.setHora(LocalTime.of(14, 0));
+        prova.setData(LocalDate.now());
+        prova.setTipoProva("Teórica");
+        prova.setAluno(new HashSet<>());
+        prova.getAluno().add(aluno);
+        prova.getAluno().add(aluno1);
+        provaService.save(prova);
+
+        Turma turma = new Turma();
+        turma.setQuantidadeAlunos(3);
+        turma.setPrazoExpiracao(LocalDate.now().plusMonths(6));
+        turma.setAluno(new HashSet<>());
+        turma.getAluno().add(aluno);
+        turma.getAluno().add(aluno2);
+        turmaService.save(turma);
 
         List<Aluno> alunos = alunoService.findAll();
         alunos.forEach(a -> System.out.println(a.getNome()));

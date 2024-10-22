@@ -2,16 +2,14 @@ package br.uespi.autoescola.model;
 
 import jakarta.persistence.*;
 import java.time.LocalDate;
-import java.util.Set;
 import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 public class Aluno {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
     private String nome;
     private String cpf;
     private LocalDate dataDeNascimento;
@@ -23,12 +21,22 @@ public class Aluno {
         joinColumns = @JoinColumn(name = "fk_Aluno_ID"),
         inverseJoinColumns = @JoinColumn(name = "fk_Aula_ID")
     )
-    private Set<Aula> aula;
+    private Set<Aula> aulas = new HashSet<>();
 
-    @ManyToMany(mappedBy = "aluno")
+    @ManyToMany
+    @JoinTable(
+        name = "Aluno_Turma",
+        joinColumns = @JoinColumn(name = "fk_Aluno_ID"),
+        inverseJoinColumns = @JoinColumn(name = "fk_Turma_ID")
+    )
     private Set<Turma> turmas = new HashSet<>();
 
-    @ManyToMany(mappedBy = "aluno")
+    @ManyToMany
+    @JoinTable(
+        name = "Aluno_Prova",
+        joinColumns = @JoinColumn(name = "fk_Aluno_ID"),
+        inverseJoinColumns = @JoinColumn(name = "fk_Prova_ID")
+    )
     private Set<Prova> provas = new HashSet<>();
 
     public Long getId() {
@@ -71,11 +79,27 @@ public class Aluno {
         this.telefone = telefone;
     }
 
-    public Set<Aula> getAula() {
-        return aula;
+    public Set<Aula> getAulas() {
+        return aulas;
     }
 
-    public void setAula(Set<Aula> aula) {
-        this.aula = aula;
+    public void setAulas(Set<Aula> aulas) {
+        this.aulas = aulas;
+    }
+
+    public Set<Turma> getTurmas() {
+        return turmas;
+    }
+
+    public void setTurmas(Set<Turma> turmas) {
+        this.turmas = turmas;
+    }
+
+    public Set<Prova> getProvas() {
+        return provas;
+    }
+
+    public void setProvas(Set<Prova> provas) {
+        this.provas = provas;
     }
 }

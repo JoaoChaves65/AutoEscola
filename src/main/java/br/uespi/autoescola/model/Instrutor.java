@@ -1,20 +1,18 @@
 package br.uespi.autoescola.model;
-
 import jakarta.persistence.*;
 import java.util.Date;
+import java.util.HashSet;
 import java.util.Set;
 
 @Entity
 public class Instrutor {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
-    private String telefone;
-    private String cpf;
     private String nome;
+    private String cpf;
     private Date dataDeNascimento;
+    private String telefone;
 
     @ManyToMany
     @JoinTable(
@@ -22,7 +20,7 @@ public class Instrutor {
         joinColumns = @JoinColumn(name = "fk_Instrutor_ID"),
         inverseJoinColumns = @JoinColumn(name = "fk_Aula_ID")
     )
-    private Set<Aula> aula;
+    private Set<Aula> aulas = new HashSet<>();
 
     public Long getId() {
         return id;
@@ -30,22 +28,6 @@ public class Instrutor {
 
     public void setId(Long id) {
         this.id = id;
-    }
-
-    public String getTelefone() {
-        return telefone;
-    }
-
-    public void setTelefone(String telefone) {
-        this.telefone = telefone;
-    }
-
-    public String getCpf() {
-        return cpf;
-    }
-
-    public void setCpf(String cpf) {
-        this.cpf = cpf;
     }
 
     public String getNome() {
@@ -56,6 +38,14 @@ public class Instrutor {
         this.nome = nome;
     }
 
+    public String getCpf() {
+        return cpf;
+    }
+
+    public void setCpf(String cpf) {
+        this.cpf = cpf;
+    }
+
     public Date getDataDeNascimento() {
         return dataDeNascimento;
     }
@@ -64,11 +54,19 @@ public class Instrutor {
         this.dataDeNascimento = dataDeNascimento;
     }
 
-    public Set<Aula> getAula() {
-        return aula;
+    public String getTelefone() {
+        return telefone;
     }
 
-    public void setAula(Set<Aula> aula) {
-        this.aula = aula;
+    public void setTelefone(String telefone) {
+        this.telefone = telefone;
+    }
+
+    public Set<Aula> getAulas() {
+        return aulas;
+    }
+
+    public void setAulas(Set<Aula> aulas) {
+        this.aulas = aulas;
     }
 }

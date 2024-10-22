@@ -2,25 +2,24 @@ package br.uespi.autoescola.model;
 
 import jakarta.persistence.*;
 import java.time.LocalDate;
+import java.util.HashSet;
 import java.util.Set;
 
 @Entity
 public class Turma {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long codigoTurma;
-
     private int quantidadeAlunos;
     private LocalDate prazoExpiracao;
 
-    @OneToMany
+    @ManyToMany
     @JoinTable(
         name = "Aluno_Turma",
-        joinColumns = @JoinColumn(name = "fk_Aluno_ID"),
-        inverseJoinColumns = @JoinColumn(name = "fk_Turma_ID")
+        joinColumns = @JoinColumn(name = "fk_Turma_ID"),
+        inverseJoinColumns = @JoinColumn(name = "fk_Aluno_ID")
     )
-    private Set<Aluno> aluno;
+    private Set<Aluno> alunos = new HashSet<>();
 
     public Long getCodigoTurma() {
         return codigoTurma;
@@ -47,10 +46,10 @@ public class Turma {
     }
 
     public Set<Aluno> getAluno() {
-        return aluno;
+        return alunos;
     }
 
-    public void setAluno(Set<Aluno> aluno) {
-        this.aluno = aluno;
+    public void setAluno(Set<Aluno> alunos) {
+        this.alunos = alunos;
     }
 }
